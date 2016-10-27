@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>homepage</title>
+    <style>
+       #map {
+        height: 550px;
+        width: 100%;
+       }
+    </style>
+</head>
+<body onload="initMap({{locs|safe}})">
+<h3>My Google Maps Demo</h3>
+    <div>
+        <table width="100%">
+            <tr>
+                <td width="80%">
+                    <div id="map"></div>
+                </td>
+                <td width="20%">
+                    <div id="input">
+                        <form method="post">
+                            <select name="tags" id="tags">
+                                <option value="Trump"> Trump </option>
+                                <option value="Hillary"> Hillary </option>
+                                <option value="Election2016"> Election2016 </option>
+                                <option value="NBA"> NBA </option>
+                                <option value="Diwali"> Diwali </option>
+                            </select>
+                            <input type="SUBMIT" value="Submit">
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <script src="/static/script.js"></script>
+
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyBo6qs5GNsSZuCBMt8Mzi7hfPL7wOVUjs8&callback=initMap">
+    </script>
+</body>
+</html>
