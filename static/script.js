@@ -30,6 +30,7 @@ function codeLocation(markers) {
                 //map.setCenter(results[0].geometry.location);
                 var marker = new google.maps.Marker({
                     map: map,
+                    animation: google.maps.Animation.DROP,
                     position: results[0].geometry.location
                 });
               } else {

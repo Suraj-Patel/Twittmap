@@ -11,9 +11,11 @@
     </style>
 </head>
 <body onload="initMap({{locs|safe}})">
-<h3>My Google Maps Demo</h3>
     <div>
         <table width="100%">
+            <tr>
+                <h3> Twitter trends on various topics </h3>
+            </tr>
             <tr>
                 <td width="80%">
                     <div id="map"></div>
@@ -22,6 +24,7 @@
                     <div id="input">
                         <form method="post">
                             <select name="tags" id="tags">
+                                <option value=""></option>
                                 <option value="Trump"> Trump </option>
                                 <option value="Hillary"> Hillary </option>
                                 <option value="Election2016"> Election2016 </option>
