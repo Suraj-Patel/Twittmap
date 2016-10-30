@@ -18,7 +18,7 @@ def search(term):
 		loc = doc['_source']['user']['location']
 		if co is not None:
 			print(" %s" % (co))
-			locations.append()
+			locations.append(co)
 		elif loc is not None:
 			print(" %s" % (loc))
 			locations.append(loc)

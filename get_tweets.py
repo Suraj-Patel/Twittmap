@@ -39,8 +39,7 @@ def main():
 	auth.set_access_token(a_token, a_secret)
 
 	tweets = tweepy.Stream(auth, listener())
-	tweets.filter(track=["trump", "hillary", "election2016", "NBA", "diwali"], async=True)
-
+	tweets.filter(track=["trump", "hillary", "election", "NBA", "diwali", "google", "NYC", "sports", "football", "cricket"], async=True)
 
 if __name__ == "__main__":
 	main()
