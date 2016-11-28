@@ -1,5 +1,4 @@
 import boto3
-import json
 
 
 class PublishTweetNotification:
@@ -13,7 +12,7 @@ class PublishTweetNotification:
 		subscriber = self.client.subscribe(
 			TopicArn=self.topic_arn,
 			Protocol='http',
-			Endpoint='http://70efd495.ngrok.io/notification'
+			Endpoint='http://3e57f7c0.ngrok.io/notification'
 		)
 
 		self.publish_notification(json_tweet_data)

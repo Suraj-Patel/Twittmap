@@ -28,6 +28,8 @@ def main():
 		text = tweet_data["text"]
 		sentiment = get_sentiment(text)
 
+		#sentiment = "positive"
+
 		if sentiment != "Exception":
 			tweet_data["sentiment"] = sentiment
 			json_tweet_data = json.dumps(tweet_data)

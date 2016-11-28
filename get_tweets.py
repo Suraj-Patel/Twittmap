@@ -23,16 +23,8 @@ class listener(StreamListener):
 			text = json_data['text']
 
 			if (co is not None) and lang == "en":
-
-				tweet_data = {}
-
-				tweet_data["location"] = co["coordinates"]
-
-				tweet_data["text"] = text
-
-				json_tweet_data = json.dumps(tweet_data)
-
-				future = self.tweet_producer.send("Tweets", bytes(json_tweet_data, 'utf-8'))
+				#print(text)
+				future = self.tweet_producer.send("Tweets", bytes(raw_data, 'utf-8'))
 
 				try:
 					future.get(timeout=10)
@@ -59,8 +51,7 @@ def main():
 
 	tweets = tweepy.Stream(auth, listener())
 	tweets.filter(
-		track=["trump", "instagram", "NBA", "food","google", "NYC", "travel", "football", "cricket"],
-		async=True)
+		track=["trump", "instagram", "NBA", "food","google", "NYC", "travel", "football", "cricket"], async=True)
 
 
 if __name__ == "__main__":

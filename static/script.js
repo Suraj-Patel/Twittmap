@@ -3,8 +3,6 @@ var map;
 function initMap(locs) {
     geocoder = new google.maps.Geocoder();
 
-    codeLocation(locs);
-
     var loc = {lat: 23, lng: 0};
     var myOptions = {
       zoom: 2,
@@ -12,6 +10,8 @@ function initMap(locs) {
     };
     map = new google.maps.Map(document.getElementById('map'), myOptions);
     map.setOptions({ minZoom: 2, maxZoom: 10 });
+
+    codeLocation(locs);
     //var marker = new google.maps.Marker({
     //  position: loc,
     //  map: map
@@ -41,9 +41,9 @@ function codeLocation(locs) {
         {
             for (i=0; i<markers.length; i++)
             {
-                address = markers[i];
+                address = JSON.parse("[" + markers[i] + "]");
                 console.log(address)
-                console.log(icons[locs[address]].icon)
+                console.log(icons[locs[markers[i]]].icon)
                 //var iconfile = icons[locs[address]].icon
                 //geocoder.geocode( { 'address': address}, function(results, status) {
                 //  if (status == google.maps.GeocoderStatus.OK) {
@@ -52,7 +52,7 @@ function codeLocation(locs) {
                     map: map,
                     icon: icons[locs[markers[i]]].icon,
                     animation: google.maps.Animation.DROP,
-                    position: address
+                    position: new google.maps.LatLng(address[0][0], address[0][1])
                 });
             }
         }

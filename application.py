@@ -12,13 +12,10 @@ application = Flask(__name__)
 @application.route("/", methods=['GET', 'POST'])
 def main():
 	get_tweets.main()
-	es = Elasticsearch()
-	if not es.indices.exists("data"):
-		es.indices.create("data")
+
 	if request.method == "POST":
 		tagValue = request.form.get("tags")
 		locations = search.search(tagValue)
-		print(locations)
 		return render_template("index.html", locs=locations)
 	else:
 		return render_template("index.html", locs=[])
@@ -43,9 +40,10 @@ def receive_notification():
 		else:
 			if data["Type"] == "Notification":
 				json_tweet_data = data["Message"]
-				json_tweet_data = ast.literal_eval(json_tweet_data)
+				print("Message Received")
+				#json_tweet_data = ast.literal_eval(json_tweet_data)
 				add_to_elasticsearch.main(json_tweet_data)
-				print(json_tweet_data)
+				#print(json_tweet_data)
 
 		return "Hello!"
 
