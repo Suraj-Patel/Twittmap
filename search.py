@@ -2,7 +2,7 @@ from elasticsearch import Elasticsearch
 import json
 
 def search(term):
-	locations = []
+	locations = {}
 	es = Elasticsearch()
 	query = json.dumps({
 		"query": {
@@ -12,18 +12,15 @@ def search(term):
 		}
 	})
 	res = es.search(index="data", doc_type="tweets", body=query)
-	#print("%d documents found" % res['hits']['total'])
 	for doc in res['hits']['hits']:
-		co = doc['_source']['coordinates']
-		loc = doc['_source']['user']['location']
-		if co is not None:
-			print(" %s" % (co))
-			locations.append(co)
-		elif loc is not None:
-			print(" %s" % (loc))
-			locations.append(loc)
+		sentiment = doc['_source']['sentiment']
+		print(" %s" % (sentiment))
+		loc = doc['_source']['location']
+		print(" %s" % (loc))
+
+		locations[loc] = sentiment
 
 	return locations
 
 if __name__ == "__main__":
-	search("#")
+	search("trump")

@@ -3,31 +3,50 @@ import json
 from tweepy.streaming import StreamListener
 from tweepy import OAuthHandler
 from elasticsearch import Elasticsearch
+from kafka import KafkaProducer
+from kafka.errors import KafkaError
+
 
 class listener(StreamListener):
 
-	s = []
 	es = Elasticsearch()
+
+	tweet_producer = KafkaProducer()
+
 	def on_data(self, raw_data):
-		#self.es.index(index="data", doc_type="tweets", body=raw_data)
 
 		json_data = json.loads(raw_data)
 		if json_data.get("text", None) is not None:
 
 			co = json_data["coordinates"]
-			loc = json_data["user"]["location"]
+			lang = json_data["lang"]
 			text = json_data['text']
-			if loc is not None or co is not None:
-				self.es.index(index="data", doc_type="tweets", body=raw_data)
-				#print (text)
+
+			if (co is not None) and lang == "en":
+
+				tweet_data = {}
+
+				tweet_data["location"] = co["coordinates"]
+
+				tweet_data["text"] = text
+
+				json_tweet_data = json.dumps(tweet_data)
+
+				future = self.tweet_producer.send("Tweets", bytes(json_tweet_data, 'utf-8'))
+
+				try:
+					future.get(timeout=10)
+				except KafkaError:
+					print("Exception occurred")
+					pass
+
 		return True
 
 	def on_error(self, status_code):
 		print(status_code)
 
 	def on_disconnect(self, notice):
-		print (self.s)
-
+		print(self.s)
 
 
 def main():
@@ -39,7 +58,10 @@ def main():
 	auth.set_access_token(a_token, a_secret)
 
 	tweets = tweepy.Stream(auth, listener())
-	tweets.filter(track=["trump", "hillary", "election", "NBA", "diwali", "google", "NYC", "sports", "football", "cricket"], async=True)
+	tweets.filter(
+		track=["trump", "instagram", "NBA", "food","google", "NYC", "travel", "football", "cricket"],
+		async=True)
+
 
 if __name__ == "__main__":
 	main()
