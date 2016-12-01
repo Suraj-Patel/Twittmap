@@ -12,7 +12,7 @@ class PublishTweetNotification:
 		subscriber = self.client.subscribe(
 			TopicArn=self.topic_arn,
 			Protocol='http',
-			Endpoint='http://a345f862.ngrok.io/notification'
+			Endpoint='http://a345f862.ngrok.io/notification'    #because localhost doesn't work
 			#Endpoint='Sample-env.qmrjkpsp3y.us-west-2.elasticbeanstalk.com/notification'
 		)
 
