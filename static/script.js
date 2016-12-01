@@ -44,10 +44,7 @@ function codeLocation(locs) {
                 address = JSON.parse("[" + markers[i] + "]");
                 console.log(address)
                 console.log(icons[locs[markers[i]]].icon)
-                //var iconfile = icons[locs[address]].icon
-                //geocoder.geocode( { 'address': address}, function(results, status) {
-                //  if (status == google.maps.GeocoderStatus.OK) {
-                    //map.setCenter(results[0].geometry.location);
+
                 var marker = new google.maps.Marker({
                     map: map,
                     icon: icons[locs[markers[i]]].icon,

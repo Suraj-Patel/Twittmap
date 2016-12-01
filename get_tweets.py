@@ -1,4 +1,5 @@
 import tweepy
+import worker
 import json
 from tweepy.streaming import StreamListener
 from tweepy import OAuthHandler
@@ -52,7 +53,6 @@ def main():
 	tweets = tweepy.Stream(auth, listener())
 	tweets.filter(
 		track=["trump", "instagram", "NBA", "food","google", "NYC", "travel", "football", "cricket"], async=True)
-
 
 if __name__ == "__main__":
 	main()

@@ -18,6 +18,7 @@ def get_sentiment(text):
 
 	return sentiment_type
 
+
 def main():
 
 	consumer = KafkaConsumer("Tweets")
@@ -27,8 +28,6 @@ def main():
 		tweet_data = json.loads(json_tweet_data)
 		text = tweet_data["text"]
 		sentiment = get_sentiment(text)
-
-		#sentiment = "positive"
 
 		if sentiment != "Exception":
 			tweet_data["sentiment"] = sentiment

@@ -4,14 +4,7 @@ import json
 def search(term):
 	locations = {}
 	es = Elasticsearch()
-	'''
-	query = json.dumps({
-		"query": {
-			"match": {
-				"text": term
-			}
-		}
-	})'''
+
 	res = es.search(index="data", doc_type="tweets", body={"query": {"query_string": {"query": term}}})
 	for doc in res['hits']['hits']:
 		sentiment = doc['_source']['sentiment']
@@ -29,4 +22,4 @@ def search(term):
 	return locations
 
 if __name__ == "__main__":
-	search("travel")
+	print(len(search("instagram").items()))

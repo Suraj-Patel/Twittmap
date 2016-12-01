@@ -12,7 +12,8 @@ class PublishTweetNotification:
 		subscriber = self.client.subscribe(
 			TopicArn=self.topic_arn,
 			Protocol='http',
-			Endpoint='http://3e57f7c0.ngrok.io/notification'
+			Endpoint='http://a345f862.ngrok.io/notification'
+			#Endpoint='Sample-env.qmrjkpsp3y.us-west-2.elasticbeanstalk.com/notification'
 		)
 
 		self.publish_notification(json_tweet_data)
